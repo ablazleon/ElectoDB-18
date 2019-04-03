@@ -10,18 +10,6 @@
 <title>Login View</title>
 </head>
 <body>
-	<shiro:guest>
-		<h2>Login</h2>
-		<form action="LoginServlet" method="post">
-			Email: <input type="text" name="email" placeholder="Email" />
-			Password: <input type="password" name="password"
-				placeholder="Password" />
-			<button type="submit">Login</button>
-		</form>
-	</shiro:guest>
-
-	<shiro:user>
-    Welcome back <shiro:principal />! Click <a href="LogoutServlet">here</a> to logout.
-</shiro:user>
+	Aquí el mapa
 </body>
 </html>
