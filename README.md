@@ -1,1 +1,1 @@
-# CRIS-19-ISST
+# ElectoDB, your election visual lab!
