@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8" />
+
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
+   integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+   crossorigin=""/>
+
+   <link rel="stylesheet" href="styles.css">
+
+   <!-- Make sure you put this AFTER Leaflet's CSS -->
+   <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"
+   integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg=="
+   crossorigin=""></script> 
+   <script type="text/javascript" src="./provincias_espana.js"></script>  
+</head>
+<body>
+	<div id="mapaLeaflet" style="position: relative; width: 1500px; height: 800px;"></div>
+	<script type="text/javascript">
+		var mymap = L.map('mapaLeaflet').setView([40.5, -3.75], 6);
+		L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+		    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+		    maxZoom: 18,
+		    id: 'mapbox.light',
+		    accessToken: 'pk.eyJ1IjoiaHh5aW5nIiwiYSI6ImNqdHg2bHhqZzA1MXQzeXBuMmk0d2d2ODQifQ.XGFr23qCn_64WtNfkEwC2g'
+		}).addTo(mymap);
+		L.geoJson(provincias).addTo(mymap);
+		function getColor(d) {
+		    return d > 50 ? '#800026' :
+		           d > 45  ? '#BD0026' :
+		           d > 41  ? '#E31A1C' :
+		           d > 35  ? '#FC4E2A' :
+		           d > 20   ? '#FD8D3C' :
+		           d > 11   ? '#FEB24C' :
+		           d > 3   ? '#FED976' :
+		                      '#FFEDA0';
+		}
+		function style(feature) {
+		    return {
+		        fillColor: getColor(feature.properties.cartodb_id),
+		        weight: 2,
+		        opacity: 1,
+		        color: 'white',
+		        dashArray: '3',
+		        fillOpacity: 0.7
+		    };
+		}
+		L.geoJson(provincias, {style: style}).addTo(mymap);
+
+		function highlightFeature(e) {
+		    var layer = e.target;
+
+		    layer.setStyle({
+		        weight: 5,
+		        color: '#666',
+		        dashArray: '',
+		        fillOpacity: 0.7
+		    });
+
+		    if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+		        layer.bringToFront();
+		    }
+
+		    info.update(layer.feature.properties);
+		}
+
+		var geojson = L.geoJson();
+
+		function resetHighlight(e) {
+		    geojson.resetStyle(e.target);
+		    info.update();
+		}
+
+		function zoomToFeature(e) {
+		    mymap.fitBounds(e.target.getBounds());
+		}
+
+		function onEachFeature(feature, layer) {
+		    layer.on({
+		        mouseover: highlightFeature,
+		        mouseout: resetHighlight,
+		        click: zoomToFeature
+		    });
+		}
+
+		geojson = L.geoJson(provincias, {
+		    style: style,
+		    onEachFeature: onEachFeature
+		}).addTo(mymap)
+
+		var info = L.control();
+
+		info.onAdd = function (map) {
+		    this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
+		    this.update();
+		    return this._div;
+		};
+
+		// method that we will use to update the control based on feature properties passed
+		info.update = function (props) {
+		    this._div.innerHTML = '<h4>Provincia de España</h4>' +  (props ?
+		        '<b>' + props.nameunit + '</b><br />' + 'Número de votos: ' + props.cartodb_id
+		        : 'Apunta a una provincia');
+		};
+
+		info.addTo(mymap);
+
+		var legend = L.control({position: 'bottomright'});
+
+		legend.onAdd = function (map) {
+
+		    var div = L.DomUtil.create('div', 'info legend'),
+		        grades = [0, 1, 3, 11, 20, 35, 45, 50],
+		        labels = [];
+
+		    // loop through our density intervals and generate a label with a colored square for each interval
+		    for (var i = 0; i < grades.length; i++) {
+		        div.innerHTML +=
+		            '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
+		            grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+		    }
+
+		    return div;
+		};
+
+		legend.addTo(mymap);
+
+	</script>
+</body>
+</html>
