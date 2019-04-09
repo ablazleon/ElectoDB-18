@@ -10,6 +10,6 @@
 <title>Login View</title>
 </head>
 <body>
-	Aquí el mapa
+	<h1>ElectoDB</h1>
 </body>
 </html>
