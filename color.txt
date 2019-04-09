@@ -1,0 +1,4 @@
+
+#ec0209  rojo PSOE
+#02c9ec  azul PP
+#8f04d5  morado Podemos
