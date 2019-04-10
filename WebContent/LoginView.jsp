@@ -165,5 +165,58 @@
 		legend.addTo(mymap);
 
 	</script>
+	
+	<title>Website Code Analyzer</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
+    <script src="js/boostrap.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Pac Man', 'Percentage'],
+          ['PP', 55],
+          ['PSOE', 25],
+          ['CIUDADANOS', 10],
+          ['UNIDAS PODEMOS', 5],
+          ['VOX', 5],
+
+          ['', 100]
+        ]);
+
+        var options = {
+          pieHole: 0.4,
+          tooltip: {text: 'value'},
+          title: 'Resultados Electorales',
+          legend: 'none',
+          width: 500,
+          pieSliceText: 'none',
+          pieStartAngle: 270,
+          slices: {
+            0: { color: '#3366CC' },
+            1: { color: 'red'},
+            2: { color: 'orange'},
+            3: { color: 'purple'},
+            4: { color: 'green'}
+
+
+          }
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('pacman'));
+        chart.draw(data, options);
+      }
+    </script>
+
+
+    <div class="container-fluid">
+        <div class="row">
+            <div style="max-height:250px;overflow:hidden">
+    			<div id="pacman" style="width: 500px; height: 500px;"></div>
+			</div>
+        </div>
+    </div>
+
 </body>
 </html>
