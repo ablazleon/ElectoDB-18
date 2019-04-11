@@ -1,1 +1,1 @@
-# ElectoDB, your election visual lab!
+# ElectoDB, an easy tool for visual election analysis
