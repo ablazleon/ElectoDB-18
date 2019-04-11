@@ -37,7 +37,7 @@
           margin-right: 8px;
           opacity: 0.7;
       }
-   </style>>
+   </style>
 
    <!-- Make sure you put this AFTER Leaflet's CSS -->
    <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"
@@ -54,10 +54,15 @@
     })
    </script>
 
-<title>Login View</title>
+<title>ElectoDB</title>
 </head>
 <body>
-	Aquí el mapa:
+	<h1>ElectoDB</h1>
+	
+	Una herramienta fácil de usar para analizar visualmente resultados electorales.
+	
+	<ul> Elecciones a cortes generales 2016 <ul>
+	
 	<div id="mapaLeaflet" style="position: relative; width: 800px; height: 800px;"></div>
 	<script type="text/javascript">
 		var mymap = L.map('mapaLeaflet').setView([40.5, -3.75], 6);
