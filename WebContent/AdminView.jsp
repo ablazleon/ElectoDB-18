@@ -16,7 +16,7 @@
 <hr>
 	<h2>Vista de administrador</h2>
 	<shiro:lacksRole name="admin">
-	No tienes permiso para ver el contenido de esta página
+	No tienes permiso para v
 </shiro:lacksRole>
 	<shiro:hasRole name="admin">
 		<h3>Crear profesor nuevo</h3>

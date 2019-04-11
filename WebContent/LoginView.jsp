@@ -61,7 +61,7 @@
 	
 	Una herramienta fácil de usar para analizar visualmente resultados electorales.
 	
-	<ul> Elecciones a cortes generales 2016 <ul>
+	<ul> Elecciones a cortes generales en España. <ul>
 	
 	<div id="mapaLeaflet" style="position: relative; width: 800px; height: 800px;"></div>
 	<script type="text/javascript">
